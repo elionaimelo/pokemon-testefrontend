@@ -28,6 +28,9 @@ export const ModalContainer = styled.div`
         position: absolute;
         right: 10px;
         top: 10px;
+        background: #f7f9fc;
+        border: 2px solid #8f9bb3;
+        border-radius: 1000px;
       }
     }
   }
