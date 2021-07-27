@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { colors } from 'assets/styles/colors'
 
 export const HomeWrapper = styled.section`
   height: 100vh;
@@ -7,16 +8,17 @@ export const HomeWrapper = styled.section`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-`;
+  background: ${colors.backgroundLinear};
+`
 
 export const ButtonInitial = styled(Link)`
-  background: #ff3d71;
+  background: ${colors.primary};
   border-radius: 42px;
-  margin-top: 31px;
-  width: 124px;
+  padding: 0 25px;
   height: 56px;
   color: white;
+  margin: 31px auto;
+  max-width: fit-content;
   text-transform: uppercase;
   font-family: Open Sans;
   font-style: normal;
@@ -28,4 +30,4 @@ export const ButtonInitial = styled(Link)`
   align-items: center;
   border: none;
   box-shadow: 0px 25px 22px rgba(0, 0, 0, 0.21);
-`;
+`

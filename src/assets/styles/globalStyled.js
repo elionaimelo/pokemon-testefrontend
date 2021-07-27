@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { colors } from './colors'
 
 export default createGlobalStyle`
   * {
@@ -17,11 +18,13 @@ export default createGlobalStyle`
   body {
     height: 100%;
     font-family: 'Open Sans', sans-serif;
+    color: ${colors.secondary};
   }
 
   body {
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: antialiased;
     color: #222;
   }
 
@@ -70,5 +73,9 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
+    -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   }
 `
