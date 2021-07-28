@@ -82,28 +82,53 @@ export const BodyModal = styled.section`
   padding: 1rem;
   padding-bottom: 60px;
 
-  .fileInput {
-    display: none;
-  }
-
-  .customLabelFile {
-    background: url(${UploadFoto});
-    display: block;
-    margin: -108px auto 30px;
-    width: 247px;
-    height: 247px;
-    cursor: pointer;
-  }
-
   form {
     margin: auto;
     display: block;
     width: 93%;
 
+    button {
+      background: ${colors.primary};
+      border-radius: 42px;
+      padding: 0 25px;
+      height: 56px;
+      color: white;
+      margin: 31px auto;
+      max-width: fit-content;
+      text-transform: uppercase;
+      font-family: Open Sans;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      box-shadow: 0px 25px 22px rgba(0, 0, 0, 0.21);
+      cursor: pointer;
+
+      &:hover {
+        background-color: purple;
+      }
+
+      &:disabled {
+        background: #ccc;
+      }
+    }
+
+    .helpTip {
+      color: red;
+      font-size: 16px;
+      text-align: center;
+      display: block;
+    }
+
     .form-row {
       display: flex;
       flex-direction: column;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
+      margin-top: 10;
 
       label {
         font-weight: bold;
@@ -146,6 +171,49 @@ export const BodyModal = styled.section`
       input {
         margin-bottom: 10px;
       }
+    }
+  }
+
+  .upload__image-wrapper {
+    button {
+      background: url(${UploadFoto});
+      display: block;
+      margin: -108px auto 30px;
+      width: 247px;
+      height: 247px;
+      cursor: pointer;
+      max-width: none;
+      box-shadow: none;
+      margin-bottom: 0px;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .image-item {
+    margin: -261px auto 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 247px;
+    width: 247px;
+
+    img {
+      height: inherit;
+    }
+  }
+
+  .image-item__btn-wrapper {
+    margin-top: -70px;
+    button {
+      background-image: none;
+      background-color: ${colors.primary};
+      height: auto;
+      width: auto;
+      max-width: none;
+      padding: 16px;
+      margin: auto;
     }
   }
 `
