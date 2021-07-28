@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import ImageUploading from 'react-images-uploading'
 
 import iconClose from 'assets/images/close.png'
 import * as S from './styled'
 import { useForm } from 'react-hook-form'
 
+import { useLocalStorage } from 'hooks/useLocalStorage'
+import api from 'services/api'
+
 function Modal() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid }
-  } = useForm()
-  const onSubmit = (data) => console.log(data)
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors, isValid }
+  // } = useForm()
+  // const onSubmit = (data) => console.log(data)
 
   // const getBase64 = (file) => {
   //   return new Promise((resolve, reject) => {
@@ -30,16 +33,52 @@ function Modal() {
   //   })
   // }
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const [loaded, setLoaded] = useState(false)
+  const [storage, setStorage] = useLocalStorage('formValues')
+  const [image, setImage] = useState()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors, isValid }
+  } = useForm()
+  const onSubmit = useCallback(() => alert('submited'), [])
+  const formData = watch()
 
-  const [images, setImages] = React.useState([])
-  const onChange = (imageList, addUpdateIndex) => {
-    setImages(imageList)
+  useEffect(() => {
+    if (!loaded) {
+      reset(storage)
+      setLoaded(true)
+    }
+  }, [storage, reset, loaded])
+
+  const onChangeImage = (image) => {
+    console.log(image)
+    setImage(image)
+    // imageUpload(image)
   }
+
+  const onChange = () => {
+    setStorage(formData)
+  }
+
+  const [tipos, setTipos] = useState([])
+
+  useEffect(() => {
+    api.get('type').then(({ data }) => {
+      setTipos(data.results)
+    })
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log(tipos)
+
+  const options = tipos.map((tipo) => {
+    return {
+      value: tipo.name,
+      label: tipo.name
+    }
+  })
 
   return (
     <S.ModalContainer>
@@ -50,10 +89,10 @@ function Modal() {
           </button>
         </header>
         <S.BodyModal>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
             <ImageUploading
-              value={images}
-              onChange={onChange}
+              value={image}
+              onChange={onChangeImage}
               dataURLKey="data_url"
             >
               {({
