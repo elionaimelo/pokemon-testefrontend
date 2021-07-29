@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import Button from "components/Button";
+import Button from 'components/Button'
 
-import iconPlus from "assets/images/plus.png";
+import iconPlus from 'assets/images/plus.png'
 
-import * as S from "./styled";
-import Modal from "components/Modal/Modal";
+import * as S from './styled'
+import Modal from 'components/Modal/Modal'
 
 const Sidebar = () => {
-  const [isModalVisible, setIsModalVisible] = useState();
+  const [isModalVisible, setIsModalVisible] = useState()
   return (
     <>
       <S.SideBarWrapper>
@@ -18,9 +18,11 @@ const Sidebar = () => {
 
         <Button icon={iconPlus} onClick={() => setIsModalVisible(true)} />
       </S.SideBarWrapper>
-      {isModalVisible ? <Modal /> : null}
+      {isModalVisible ? (
+        <Modal onClose={() => setIsModalVisible(false)} />
+      ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { useLocalStorage } from 'hooks/useLocalStorage'
 import api from 'services/api'
 
-function Modal() {
+function Modal({ onClose = () => {} }) {
   // const {
   //   register,
   //   handleSubmit,
@@ -35,6 +35,7 @@ function Modal() {
 
   const [loaded, setLoaded] = useState(false)
   const [storage, setStorage] = useLocalStorage('formValues')
+  const [select, setSelect] = useState()
   const [image, setImage] = useState()
   const {
     register,
@@ -54,7 +55,6 @@ function Modal() {
   }, [storage, reset, loaded])
 
   const onChangeImage = (image) => {
-    console.log(image)
     setImage(image)
     // imageUpload(image)
   }
@@ -71,7 +71,6 @@ function Modal() {
     })
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(tipos)
 
   const options = tipos.map((tipo) => {
     return {
@@ -84,7 +83,7 @@ function Modal() {
     <S.ModalContainer>
       <div className="container">
         <header>
-          <button className="close">
+          <button className="close" onClick={onClose}>
             <img src={iconClose} alt="" />
           </button>
         </header>
@@ -95,13 +94,7 @@ function Modal() {
               onChange={onChangeImage}
               dataURLKey="data_url"
             >
-              {({
-                imageList,
-                onImageUpload,
-                onImageRemove,
-                isDragging,
-                dragProps
-              }) => (
+              {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
                   <button onClick={onImageUpload} {...dragProps}></button>
@@ -155,35 +148,78 @@ function Modal() {
             </div>
             <div className="form-row">
               <label>Peso</label>
-              <input type="number" placeholder="Peso" />
+              <input
+                type="number"
+                placeholder="Peso"
+                name="peso"
+                {...register('peso', {
+                  required: 'Este campo é obrigatório',
+                  min: 1
+                })}
+              />
+              {errors.peso && (
+                <span className="helpTip">O campo {} é obrigatório</span>
+              )}
             </div>
             <div className="form-row">
               <label>Altura</label>
-              <input type="number" placeholder="Altura" />
+              <input
+                type="number"
+                name="altura"
+                placeholder="Altura"
+                {...register('altura', {
+                  required: 'Este campo é obrigatório',
+                  min: 1,
+                  max: 220
+                })}
+              />
             </div>
+            {errors.altura && (
+              <span className="helpTip">O campo {} é obrigatório</span>
+            )}
             <div className="form-row">
               <label className="divider">
                 <span>Tipo</span>
               </label>
               <S.StyledSelect
                 classNamePrefix="Select"
+                name="tipo"
+                onChange={(e) => setSelect(e.value)}
                 options={options}
-                value={{
-                  value: 'vazio',
-                  label: 'Selecione o(s) tipo(s)'
-                }}
               />
             </div>
             <div className="form-row skills">
               <label className="divider">
                 <span>Habilidades</span>
               </label>
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
+              <input
+                type="text"
+                {...register('habilidade1', {
+                  required: 'Este campo é obrigatório'
+                })}
+              />
+              <input
+                type="text"
+                {...register('habilidade2', {
+                  required: 'Este campo é obrigatório'
+                })}
+              />
+              <input
+                type="text"
+                {...register('habilidade3', {
+                  required: 'Este campo é obrigatório'
+                })}
+              />
+              <input
+                type="text"
+                {...register('habilidade4', {
+                  required: 'Este campo é obrigatório'
+                })}
+              />
             </div>
-            <button disabled={!isValid}>Criar pokemon</button>
+            <button disabled={!isValid} onClick={onClose}>
+              Criar pokemon
+            </button>
           </form>
         </S.BodyModal>
       </div>

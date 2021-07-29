@@ -37,6 +37,7 @@ export const ModalContainer = styled.div`
         background: #f7f9fc;
         border: 2px solid #8f9bb3;
         border-radius: 1000px;
+        cursor: pointer;
       }
     }
   }
