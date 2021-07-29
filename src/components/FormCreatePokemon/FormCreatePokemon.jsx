@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 import * as S from 'components/Modal/styled'
-// import { useForm } from 'react-hook-form'
-
-// import { useLocalStorage } from 'hooks/useLocalStorage'
 import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
