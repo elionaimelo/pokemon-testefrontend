@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ImageUploading from 'react-images-uploading'
 
 import * as S from 'components/Modal/styled'
-import { useForm } from 'react-hook-form'
+// import { useForm } from 'react-hook-form'
 
-import { useLocalStorage } from 'hooks/useLocalStorage'
+// import { useLocalStorage } from 'hooks/useLocalStorage'
 import api from 'services/api'
 
 function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
@@ -32,60 +32,108 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
   //   })
   // }
 
-  const [loaded, setLoaded] = useState(false)
-  const [storage, setStorage] = useLocalStorage('formValues')
-  const [select, setSelect] = useState()
+  // const [loaded, setLoaded] = useState(false)
+  // const [storage, setStorage] = useLocalStorage('formValues')
+  // const [select, setSelect] = useState()
   const [image, setImage] = useState()
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors, isValid }
-  } = useForm()
-  const onSubmit = useCallback(() => console.log('submited'), [])
-  const formData = watch()
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   watch,
+  //   formState: { errors, isValid }
+  // } = useForm()
+  // const onSubmit = useCallback(() => console.log('submited'), [])
+  // const formData = watch()
 
-  useEffect(() => {
-    if (!loaded) {
-      reset(storage)
-      setLoaded(true)
-    }
-  }, [storage, reset, loaded])
+  // useEffect(() => {
+  //   if (!loaded) {
+  //     reset(storage)
+  //     setLoaded(true)
+  //   }
+  // }, [storage, reset, loaded])
 
-  const onChangeImage = (image) => {
-    setImage(image)
-    // imageUpload(image)
-  }
+  // const onChangeImage = (image) => {
+  //   setImage(image)
+  //   // imageUpload(image)
+  // }
 
-  const onChange = () => {
-    setStorage(formData)
-  }
+  // const onChange = () => {
+  //   setStorage(formData)
+  // }
 
-  const [tipos, setTipos] = useState([])
+  const [tiposSelect, setTiposSelect] = useState([])
 
   useEffect(() => {
     api.get('type').then(({ data }) => {
-      setTipos(data.results)
+      setTiposSelect(data.results)
     })
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const options = tipos.map((tipo) => {
+  const options = tiposSelect.map((tipo) => {
     return {
       value: tipo.name,
       label: tipo.name
     }
   })
 
-  const handleOutsiteModal = (e) => {
-    if (e.target.id === id) onClose()
+  // const handleOutsiteModal = (e) => {
+  //   if (e.target.id === id) onClose()
+  // }
+
+  // array of objects state
+  const [pokemons, setPokemons] = useState([])
+
+  // input field states
+  const [imagePokemon, setImagePokemon] = useState('')
+  const [nome, setNome] = useState('')
+  const [hp, setHp] = useState('')
+  const [peso, setPeso] = useState('')
+  const [altura, setAltura] = useState('')
+  const [tipo, setTipo] = useState('')
+  const [habilidade1, setHabilidade1] = useState('')
+  const [habilidade2, setHabilidade2] = useState('')
+  const [habilidade3, setHabilidade3] = useState('')
+  const [habilidade4, setHabilidade4] = useState('')
+
+  // states for select
+  const [text, setText] = useState(options[0])
+
+  // form submit event
+  const handleAddPokemon = (e) => {
+    e.preventDefault()
+
+    let pokemon = {
+      nome,
+      hp,
+      peso,
+      altura,
+      tipo,
+      habilidade1,
+      habilidade2,
+      habilidade3,
+      habilidade4
+    }
+    setPokemons([...pokemons, pokemon])
   }
+
+  //saving data to localstorage
+  useEffect(() => {
+    localStorage.setItem('pokemons', JSON.stringify(pokemons))
+  }, [pokemons])
+
+  //When selecting option change text and save storage
+  const onChangeSelect = (selectedOption) => {
+    setText(selectedOption)
+    setTipo(selectedOption.value)
+    console.log(`Option selected:`, selectedOption)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
+    <form onSubmit={handleAddPokemon}>
       <ImageUploading
         value={image}
-        onChange={onChangeImage}
+        // onChange={onChangeImage}
         dataURLKey="data_url"
       >
         {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
@@ -110,17 +158,19 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           type="text"
           placeholder="Nome"
           name="namePoke"
-          {...register('namePoke', {
-            required: 'Este campo é obrigatório',
-            minLength: {
-              value: 3,
-              message: 'O campo precisa ter mais de 3 letras'
-            }
-          })}
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          // {...register('namePoke', {
+          //   required: 'Este campo é obrigatório',
+          //   minLength: {
+          //     value: 3,
+          //     message: 'O campo precisa ter mais de 3 letras'
+          //   }
+          // })}
         />
-        {errors.namePoke && (
+        {/* {errors.namePoke && (
           <span className="helpTip">{errors.namePoke.message}</span>
-        )}
+        )} */}
       </div>
       <div className="form-row">
         <label>HP</label>
@@ -128,13 +178,15 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           type="number"
           name="hp"
           placeholder="HP"
-          {...register('hp', {
-            required: 'Este campo é obrigatório',
-            min: 1,
-            max: 99
-          })}
+          value={hp}
+          onChange={(e) => setHp(e.target.value)}
+          // {...register('hp', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1,
+          //   max: 99
+          // })}
         />
-        {errors.hp && <span className="helpTip">O campo {} é obrigatório</span>}
+        {/* {errors.hp && <span className="helpTip">O campo {} é obrigatório</span>} */}
       </div>
       <div className="form-row">
         <label>Peso</label>
@@ -142,14 +194,16 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           type="number"
           placeholder="Peso"
           name="peso"
-          {...register('peso', {
-            required: 'Este campo é obrigatório',
-            min: 1
-          })}
+          value={peso}
+          onChange={(e) => setPeso(e.target.value)}
+          // {...register('peso', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1
+          // })}
         />
-        {errors.peso && (
+        {/* {errors.peso && (
           <span className="helpTip">O campo {} é obrigatório</span>
-        )}
+        )} */}
       </div>
       <div className="form-row">
         <label>Altura</label>
@@ -157,16 +211,18 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           type="number"
           name="altura"
           placeholder="Altura"
-          {...register('altura', {
-            required: 'Este campo é obrigatório',
-            min: 1,
-            max: 220
-          })}
+          value={altura}
+          onChange={(e) => setAltura(e.target.value)}
+          // {...register('altura', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1,
+          //   max: 220
+          // })}
         />
       </div>
-      {errors.altura && (
+      {/* {errors.altura && (
         <span className="helpTip">O campo {} é obrigatório</span>
-      )}
+      )} */}
       <div className="form-row">
         <label className="divider">
           <span>Tipo</span>
@@ -174,8 +230,9 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
         <S.StyledSelect
           classNamePrefix="Select"
           name="tipo"
-          onChange={(e) => setSelect(e.value)}
           options={options}
+          onChange={onChangeSelect}
+          value={text}
         />
       </div>
       <div className="form-row skills">
@@ -184,32 +241,38 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
         </label>
         <input
           type="text"
-          {...register('habilidade1', {
-            required: 'Este campo é obrigatório'
-          })}
+          value={habilidade1}
+          onChange={(e) => setHabilidade1(e.target.value)}
+          // {...register('habilidade1', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          {...register('habilidade2', {
-            required: 'Este campo é obrigatório'
-          })}
+          value={habilidade2}
+          onChange={(e) => setHabilidade2(e.target.value)}
+          // {...register('habilidade2', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          {...register('habilidade3', {
-            required: 'Este campo é obrigatório'
-          })}
+          value={habilidade3}
+          onChange={(e) => setHabilidade3(e.target.value)}
+          // {...register('habilidade3', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          {...register('habilidade4', {
-            required: 'Este campo é obrigatório'
-          })}
+          value={habilidade4}
+          onChange={(e) => setHabilidade4(e.target.value)}
+          // {...register('habilidade4', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
       </div>
-      <button disabled={!isValid} onClick={handleOutsiteModal}>
-        Criar pokemon
-      </button>
+      <button>Criar pokemon</button>
     </form>
   )
 }
