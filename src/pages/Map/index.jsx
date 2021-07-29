@@ -11,7 +11,6 @@ import * as S from './styled'
 
 const MapPage = () => {
   const [personagem, setPersonagem] = useState(true)
-  const [visible, setVisible] = useState()
 
   return (
     <S.MapWrapper className="map">

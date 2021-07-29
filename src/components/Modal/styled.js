@@ -93,7 +93,7 @@ export const BodyModal = styled.section`
       height: 247px;
       width: 247px;
       object-fit: cover;
-      margin: auto;
+      margin: -110px auto 0;
     }
 
     button {

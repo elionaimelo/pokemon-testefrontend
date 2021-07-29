@@ -8,50 +8,7 @@ import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
 function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors, isValid }
-  // } = useForm()
-  // const onSubmit = (data) => console.log(data)
-
-  // const getBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader()
-  //     reader.onload = () => resolve(reader.result)
-  //     reader.onerror = (error) => reject(error)
-  //     reader.readAsDataURL(file)
-  //   })
-  // }
-
-  // const imageUpload = (e) => {
-  //   const file = e.target.files[0]
-  //   getBase64(file).then((base64) => {
-  //     localStorage['fileBase64'] = base64
-  //     console.debug('file stored', base64)
-  //   })
-  // }
-
-  // const [loaded, setLoaded] = useState(false)
-  // const [storage, setStorage] = useLocalStorage('formValues')
-  // const [image, setImage] = useState()
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   watch,
-  //   formState: { errors, isValid }
-  // } = useForm()
-  // const onSubmit = useCallback(() => console.log('submited'), [])
-  // const formData = watch()
-
-  //change image pokemon
-  const onChangeImage = (e) => {
-    console.log(e)
-    setImagePokemon(e.data_url)
-    // imageUpload(image)
-  }
-
+  //getting types from the api
   const [tiposSelect, setTiposSelect] = useState([])
 
   useEffect(() => {
@@ -66,12 +23,12 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
       label: tipo.name
     }
   })
+  //end getting types from the api
 
   // array of objects state
   const [pokemons, setPokemons] = useState([])
 
   // input field states
-
   const [nome, setNome] = useState('')
   const [hp, setHp] = useState('')
   const [peso, setPeso] = useState('')
@@ -82,7 +39,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
   const [habilidade3, setHabilidade3] = useState('')
   const [habilidade4, setHabilidade4] = useState('')
 
-  // states for select
+  // states for option select
   const [text, setText] = useState(options[0])
 
   // form submit event
@@ -126,9 +83,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
         setImagePokemon(reader.result)
       }
     }
-
     reader.readAsDataURL(e.target.files[0])
-    console.log(imagePokemon)
   }
 
   return (
