@@ -43,7 +43,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
     watch,
     formState: { errors, isValid }
   } = useForm()
-  const onSubmit = useCallback(() => alert('submited'), [])
+  const onSubmit = useCallback(() => console.log('submited'), [])
   const formData = watch()
 
   useEffect(() => {
