@@ -88,6 +88,14 @@ export const BodyModal = styled.section`
     display: block;
     width: 93%;
 
+    .uploadImage {
+      border-radius: 50%;
+      height: 247px;
+      width: 247px;
+      object-fit: cover;
+      margin: auto;
+    }
+
     button {
       background: ${colors.primary};
       border-radius: 42px;

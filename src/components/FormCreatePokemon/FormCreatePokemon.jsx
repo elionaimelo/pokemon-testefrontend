@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import ImageUploading from 'react-images-uploading'
 
 import * as S from 'components/Modal/styled'
 // import { useForm } from 'react-hook-form'
 
 // import { useLocalStorage } from 'hooks/useLocalStorage'
+import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
 function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
@@ -34,8 +34,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
 
   // const [loaded, setLoaded] = useState(false)
   // const [storage, setStorage] = useLocalStorage('formValues')
-  // const [select, setSelect] = useState()
-  const [image, setImage] = useState()
+  // const [image, setImage] = useState()
   // const {
   //   register,
   //   handleSubmit,
@@ -46,21 +45,12 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
   // const onSubmit = useCallback(() => console.log('submited'), [])
   // const formData = watch()
 
-  // useEffect(() => {
-  //   if (!loaded) {
-  //     reset(storage)
-  //     setLoaded(true)
-  //   }
-  // }, [storage, reset, loaded])
-
-  // const onChangeImage = (image) => {
-  //   setImage(image)
-  //   // imageUpload(image)
-  // }
-
-  // const onChange = () => {
-  //   setStorage(formData)
-  // }
+  //change image pokemon
+  const onChangeImage = (e) => {
+    console.log(e)
+    setImagePokemon(e.data_url)
+    // imageUpload(image)
+  }
 
   const [tiposSelect, setTiposSelect] = useState([])
 
@@ -77,15 +67,11 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
     }
   })
 
-  // const handleOutsiteModal = (e) => {
-  //   if (e.target.id === id) onClose()
-  // }
-
   // array of objects state
   const [pokemons, setPokemons] = useState([])
 
   // input field states
-  const [imagePokemon, setImagePokemon] = useState('')
+
   const [nome, setNome] = useState('')
   const [hp, setHp] = useState('')
   const [peso, setPeso] = useState('')
@@ -104,6 +90,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
     e.preventDefault()
 
     let pokemon = {
+      imagePokemon,
       nome,
       hp,
       peso,
@@ -129,29 +116,33 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
     console.log(`Option selected:`, selectedOption)
   }
 
+  //imageUpload
+  const [imagePokemon, setImagePokemon] = useState(UploadFoto)
+
+  const handleImage = (e) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagePokemon(reader.result)
+      }
+    }
+
+    reader.readAsDataURL(e.target.files[0])
+    console.log(imagePokemon)
+  }
+
   return (
     <form onSubmit={handleAddPokemon}>
-      <ImageUploading
-        value={image}
-        // onChange={onChangeImage}
-        dataURLKey="data_url"
-      >
-        {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
-          // write your building UI
-          <div className="upload__image-wrapper">
-            <button onClick={onImageUpload} {...dragProps}></button>
-            &nbsp;
-            {imageList.map((image, index) => (
-              <div key={index} className="image-item">
-                <img src={image.data_url} alt="" width="300" />
-                <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageRemove(index)}>Remover</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </ImageUploading>
+      <div className="form-row">
+        <img src={imagePokemon} className="uploadImage" alt="" />
+        <input
+          id="fileUp"
+          type="file"
+          name="image-upload"
+          accept="image/*"
+          onChange={handleImage}
+        />
+      </div>
       <div className="form-row">
         <label>Nome</label>
         <input
