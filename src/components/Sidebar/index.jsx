@@ -6,6 +6,7 @@ import iconPlus from 'assets/images/plus.png'
 
 import * as S from './styled'
 import Modal from 'components/Modal/Modal'
+import FormCreatePokemon from 'components/FormCreatePokemon/FormCreatePokemon'
 
 const Sidebar = () => {
   const [isModalVisible, setIsModalVisible] = useState()
@@ -19,7 +20,9 @@ const Sidebar = () => {
         <Button icon={iconPlus} onClick={() => setIsModalVisible(true)} />
       </S.SideBarWrapper>
       {isModalVisible ? (
-        <Modal onClose={() => setIsModalVisible(false)} />
+        <Modal onClose={() => setIsModalVisible(false)}>
+          <FormCreatePokemon onClose={() => setIsModalVisible(false)} />
+        </Modal>
       ) : null}
     </>
   )
