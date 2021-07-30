@@ -57,19 +57,23 @@ function FormCreatePokemon({
   const handleAddPokemon = (e) => {
     e.preventDefault()
 
-    let pokemon = {
-      imagePokemon,
-      nome,
-      hp,
-      peso,
-      altura,
-      tipo,
-      habilidade1,
-      habilidade2,
-      habilidade3,
-      habilidade4
+    if (pokemons.length < 6) {
+      let pokemon = {
+        imagePokemon,
+        nome,
+        hp,
+        peso,
+        altura,
+        tipo,
+        habilidade1,
+        habilidade2,
+        habilidade3,
+        habilidade4
+      }
+      setPokemons([...pokemons, pokemon])
+    } else {
+      alert('Só é possível cadastrar 6 pokemons')
     }
-    setPokemons([...pokemons, pokemon])
   }
 
   //saving data to localstorage
