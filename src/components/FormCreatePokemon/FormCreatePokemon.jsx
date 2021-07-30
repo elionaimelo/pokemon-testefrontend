@@ -4,7 +4,7 @@ import * as S from 'components/Modal/styled'
 import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
-function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
+function FormCreatePokemon({ id = 'modal', onClose = () => { }, setStoragePokemons }) {
   // getting the values of local storage
   const getDatafromLS = () => {
     const data = localStorage.getItem('pokemons')
@@ -70,6 +70,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
 
   //saving data to localstorage
   useEffect(() => {
+    setStoragePokemons(pokemons)
     localStorage.setItem('pokemons', JSON.stringify(pokemons))
   }, [pokemons])
 
@@ -122,13 +123,13 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           name="namePoke"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
-          // {...register('namePoke', {
-          //   required: 'Este campo é obrigatório',
-          //   minLength: {
-          //     value: 3,
-          //     message: 'O campo precisa ter mais de 3 letras'
-          //   }
-          // })}
+        // {...register('namePoke', {
+        //   required: 'Este campo é obrigatório',
+        //   minLength: {
+        //     value: 3,
+        //     message: 'O campo precisa ter mais de 3 letras'
+        //   }
+        // })}
         />
         {/* {errors.namePoke && (
           <span className="helpTip">{errors.namePoke.message}</span>
@@ -142,11 +143,11 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           placeholder="HP"
           value={hp}
           onChange={(e) => setHp(e.target.value)}
-          // {...register('hp', {
-          //   required: 'Este campo é obrigatório',
-          //   min: 1,
-          //   max: 99
-          // })}
+        // {...register('hp', {
+        //   required: 'Este campo é obrigatório',
+        //   min: 1,
+        //   max: 99
+        // })}
         />
         {/* {errors.hp && <span className="helpTip">O campo {} é obrigatório</span>} */}
       </div>
@@ -158,10 +159,10 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           name="peso"
           value={peso}
           onChange={(e) => setPeso(e.target.value)}
-          // {...register('peso', {
-          //   required: 'Este campo é obrigatório',
-          //   min: 1
-          // })}
+        // {...register('peso', {
+        //   required: 'Este campo é obrigatório',
+        //   min: 1
+        // })}
         />
         {/* {errors.peso && (
           <span className="helpTip">O campo {} é obrigatório</span>
@@ -175,11 +176,11 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           placeholder="Altura"
           value={altura}
           onChange={(e) => setAltura(e.target.value)}
-          // {...register('altura', {
-          //   required: 'Este campo é obrigatório',
-          //   min: 1,
-          //   max: 220
-          // })}
+        // {...register('altura', {
+        //   required: 'Este campo é obrigatório',
+        //   min: 1,
+        //   max: 220
+        // })}
         />
       </div>
       {/* {errors.altura && (
@@ -205,33 +206,33 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
           type="text"
           value={habilidade1}
           onChange={(e) => setHabilidade1(e.target.value)}
-          // {...register('habilidade1', {
-          //   required: 'Este campo é obrigatório'
-          // })}
+        // {...register('habilidade1', {
+        //   required: 'Este campo é obrigatório'
+        // })}
         />
         <input
           type="text"
           value={habilidade2}
           onChange={(e) => setHabilidade2(e.target.value)}
-          // {...register('habilidade2', {
-          //   required: 'Este campo é obrigatório'
-          // })}
+        // {...register('habilidade2', {
+        //   required: 'Este campo é obrigatório'
+        // })}
         />
         <input
           type="text"
           value={habilidade3}
           onChange={(e) => setHabilidade3(e.target.value)}
-          // {...register('habilidade3', {
-          //   required: 'Este campo é obrigatório'
-          // })}
+        // {...register('habilidade3', {
+        //   required: 'Este campo é obrigatório'
+        // })}
         />
         <input
           type="text"
           value={habilidade4}
           onChange={(e) => setHabilidade4(e.target.value)}
-          // {...register('habilidade4', {
-          //   required: 'Este campo é obrigatório'
-          // })}
+        // {...register('habilidade4', {
+        //   required: 'Este campo é obrigatório'
+        // })}
         />
       </div>
       <button>Criar pokemon</button>
