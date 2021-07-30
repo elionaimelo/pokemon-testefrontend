@@ -7,7 +7,7 @@ import api from 'services/api'
 function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
   // getting the values of local storage
   const getDatafromLS = () => {
-    const data = localStorage.getItem('books')
+    const data = localStorage.getItem('pokemons')
     if (data) {
       return JSON.parse(data)
     } else {
@@ -106,7 +106,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
         />
       </div>
       <div className="form-row">
-        {pokemons.length > 0 && (
+        {/* {pokemons.length > 0 && (
           <>
             <div>
               Nome do pokemon q pegou do localStorage:{' '}
@@ -114,7 +114,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
             </div>
           </>
         )}{' '}
-        {pokemons.length < 1 && <div>Não há nenhum pokemon cadastrado</div>}
+        {pokemons.length < 1 && <div>Não há nenhum pokemon cadastrado</div>} */}
         <label>Nome</label>
         <input
           type="text"

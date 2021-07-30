@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Button from 'components/Button'
 
@@ -10,11 +10,32 @@ import FormCreatePokemon from 'components/FormCreatePokemon/FormCreatePokemon'
 
 const Sidebar = () => {
   const [isModalVisible, setIsModalVisible] = useState()
+  const [storagepokemons, setStoragePokemons] = useState([])
+
+  useEffect(() => {
+    if (localStorage.getItem('pokemons')) {
+      setStoragePokemons(JSON.parse(localStorage.getItem('pokemons')))
+    }
+  }, [])
+
   return (
     <>
       <S.SideBarWrapper>
         <S.SideBarList>
-          <S.SideBarItem>?</S.SideBarItem>
+          {storagepokemons.length > 0 && (
+            <>
+              {storagepokemons.map((pokemons, index) => (
+                <S.SideBarItem key={index}>
+                  <img key={index} src={pokemons.imagePokemon} alt="" />
+                </S.SideBarItem>
+              ))}
+            </>
+          )}
+          {storagepokemons.length < 1 && (
+            <>
+              <S.SideBarItem>?</S.SideBarItem>
+            </>
+          )}
         </S.SideBarList>
 
         <Button icon={iconPlus} onClick={() => setIsModalVisible(true)} />

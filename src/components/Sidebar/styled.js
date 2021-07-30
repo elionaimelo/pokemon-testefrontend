@@ -31,6 +31,11 @@ export const SideBarItem = styled.li`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
+
+  > img {
+    width: 100%;
+  }
 
   &:hover {
     background-color: #004a45;
