@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import * as S from 'components/Modal/styled'
+import * as S from './styled'
 import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
@@ -99,9 +99,11 @@ function FormCreatePokemon({
   }
 
   return (
-    <form onSubmit={handleAddPokemon}>
+    <S.FormCreatePokemon onSubmit={handleAddPokemon}>
       <div className="form-row">
-        <img src={imagePokemon} className="uploadImage" alt="" />
+        <label htmlFor="fileUp">
+          <img src={imagePokemon} className="uploadImage" alt="" />
+        </label>
         <input
           id="fileUp"
           type="file"
@@ -240,7 +242,7 @@ function FormCreatePokemon({
         />
       </div>
       <button>Criar pokemon</button>
-    </form>
+    </S.FormCreatePokemon>
   )
 }
 
