@@ -3,28 +3,18 @@ import React, { useState, useEffect } from 'react'
 import * as S from 'components/Modal/styled'
 import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 
-//validation form
-const schema = yup.object().shape({
-  nome: yup.string().required(),
-  hp: yup.number().required().positive().integer(),
-  peso: yup.number().positive(),
-  altura: yup.number().positive().integer(),
-  tipo: yup.string().required(),
-  habilidade1: yup.string().required(),
-  habilidade2: yup.string().required(),
-  habilidade3: yup.string().required(),
-  habilidade4: yup.string().required()
-})
+function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
+  // getting the values of local storage
+  const getDatafromLS = () => {
+    const data = localStorage.getItem('books')
+    if (data) {
+      return JSON.parse(data)
+    } else {
+      return []
+    }
+  }
 
-const { register, handleSubmit, errors } = useForm({
-  resolver: yupResolver(schema)
-})
-
-function FormCreatePokemon() {
   //getting types from the api
   const [tiposSelect, setTiposSelect] = useState([])
 
@@ -43,7 +33,7 @@ function FormCreatePokemon() {
   //end getting types from the api
 
   // array of objects state
-  const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState(getDatafromLS)
 
   // input field states
   const [nome, setNome] = useState('')
@@ -103,31 +93,46 @@ function FormCreatePokemon() {
     reader.readAsDataURL(e.target.files[0])
   }
 
-  const onSubmit = (data) => handleAddPokemon(data)
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleAddPokemon}>
       <div className="form-row">
         <img src={imagePokemon} className="uploadImage" alt="" />
         <input
           id="fileUp"
           type="file"
-          name="imageUpload"
+          name="image-upload"
           accept="image/*"
           onChange={handleImage}
         />
       </div>
       <div className="form-row">
+        {pokemons.length > 0 && (
+          <>
+            <div>
+              Nome do pokemon q pegou do localStorage:{' '}
+              {pokemons.map((pokemons) => pokemons.nome)}
+            </div>
+          </>
+        )}{' '}
+        {pokemons.length < 1 && <div>Não há nenhum pokemon cadastrado</div>}
         <label>Nome</label>
         <input
           type="text"
           placeholder="Nome"
-          name="nome"
+          name="namePoke"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
-          {...register('nome')}
+          // {...register('namePoke', {
+          //   required: 'Este campo é obrigatório',
+          //   minLength: {
+          //     value: 3,
+          //     message: 'O campo precisa ter mais de 3 letras'
+          //   }
+          // })}
         />
-        <p>{errors.nome.message}</p>
+        {/* {errors.namePoke && (
+          <span className="helpTip">{errors.namePoke.message}</span>
+        )} */}
       </div>
       <div className="form-row">
         <label>HP</label>
@@ -137,7 +142,13 @@ function FormCreatePokemon() {
           placeholder="HP"
           value={hp}
           onChange={(e) => setHp(e.target.value)}
+          // {...register('hp', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1,
+          //   max: 99
+          // })}
         />
+        {/* {errors.hp && <span className="helpTip">O campo {} é obrigatório</span>} */}
       </div>
       <div className="form-row">
         <label>Peso</label>
@@ -147,7 +158,14 @@ function FormCreatePokemon() {
           name="peso"
           value={peso}
           onChange={(e) => setPeso(e.target.value)}
+          // {...register('peso', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1
+          // })}
         />
+        {/* {errors.peso && (
+          <span className="helpTip">O campo {} é obrigatório</span>
+        )} */}
       </div>
       <div className="form-row">
         <label>Altura</label>
@@ -157,9 +175,16 @@ function FormCreatePokemon() {
           placeholder="Altura"
           value={altura}
           onChange={(e) => setAltura(e.target.value)}
+          // {...register('altura', {
+          //   required: 'Este campo é obrigatório',
+          //   min: 1,
+          //   max: 220
+          // })}
         />
       </div>
-
+      {/* {errors.altura && (
+        <span className="helpTip">O campo {} é obrigatório</span>
+      )} */}
       <div className="form-row">
         <label className="divider">
           <span>Tipo</span>
@@ -178,27 +203,35 @@ function FormCreatePokemon() {
         </label>
         <input
           type="text"
-          name="habilidade1"
           value={habilidade1}
           onChange={(e) => setHabilidade1(e.target.value)}
+          // {...register('habilidade1', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          name="habilidade2"
           value={habilidade2}
           onChange={(e) => setHabilidade2(e.target.value)}
+          // {...register('habilidade2', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          name="habilidade3"
           value={habilidade3}
           onChange={(e) => setHabilidade3(e.target.value)}
+          // {...register('habilidade3', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
         <input
           type="text"
-          name="habilidade4"
           value={habilidade4}
           onChange={(e) => setHabilidade4(e.target.value)}
+          // {...register('habilidade4', {
+          //   required: 'Este campo é obrigatório'
+          // })}
         />
       </div>
       <button>Criar pokemon</button>
