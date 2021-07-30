@@ -4,7 +4,11 @@ import * as S from 'components/Modal/styled'
 import UploadFoto from 'assets/images/upload_foto.png'
 import api from 'services/api'
 
-function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
+function FormCreatePokemon({
+  id = 'modal',
+  onClose = () => {},
+  setStoragePokemons
+}) {
   // getting the values of local storage
   const getDatafromLS = () => {
     const data = localStorage.getItem('pokemons')
@@ -16,7 +20,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
   }
 
   //getting types from the api
-  const [tiposSelect, setTiposSelect] = useState([])
+  const [tiposSelect, setTiposSelect] = useState(getDatafromLS)
 
   useEffect(() => {
     api.get('type').then(({ data }) => {
@@ -70,6 +74,7 @@ function FormCreatePokemon({ id = 'modal', onClose = () => {} }) {
 
   //saving data to localstorage
   useEffect(() => {
+    setStoragePokemons(pokemons)
     localStorage.setItem('pokemons', JSON.stringify(pokemons))
   }, [pokemons])
 

@@ -18,6 +18,10 @@ const Sidebar = () => {
     }
   }, [])
 
+  function handleStorageChange(storagepokemons) {
+    setStoragePokemons(storagepokemons)
+  }
+
   return (
     <>
       <S.SideBarWrapper>
@@ -42,7 +46,10 @@ const Sidebar = () => {
       </S.SideBarWrapper>
       {isModalVisible ? (
         <Modal onClose={() => setIsModalVisible(false)}>
-          <FormCreatePokemon onClose={() => setIsModalVisible(false)} />
+          <FormCreatePokemon
+            onClose={() => setIsModalVisible(false)}
+            setStoragePokemons={handleStorageChange}
+          />
         </Modal>
       ) : null}
     </>
