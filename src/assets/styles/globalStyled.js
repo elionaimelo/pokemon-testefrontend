@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { colors } from './colors'
+import { theme } from 'theme/index'
 
 export default createGlobalStyle`
   * {
@@ -18,7 +18,7 @@ export default createGlobalStyle`
   body {
     height: 100%;
     font-family: 'Open Sans', sans-serif;
-    color: ${colors.secondary};
+    color: ${theme.colors.secondary};
   }
 
   body {

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from 'assets/styles/colors'
+import { theme } from 'theme/index'
 import Select from 'react-select'
 
 export const FormCreatePokemon = styled.form`
@@ -25,7 +25,7 @@ export const FormCreatePokemon = styled.form`
   }
 
   button {
-    background: ${colors.primary};
+    background: ${theme.colors.primary};
     border-radius: 42px;
     padding: 0 25px;
     height: 56px;
@@ -79,7 +79,7 @@ export const FormCreatePokemon = styled.form`
       border-radius: 4px;
       background-color: white;
       color: #c5cee0;
-      border: 2px solid ${colors.grey};
+      border: 2px solid ${theme.colors.grey};
       padding: 8px;
     }
 
@@ -87,7 +87,7 @@ export const FormCreatePokemon = styled.form`
       text-align: center;
       position: relative;
       margin-bottom: 30px;
-      border-bottom: 1px solid ${colors.divider};
+      border-bottom: 1px solid ${theme.colors.divider};
       span {
         background-color: #f7f9fc;
         position: relative;
@@ -128,7 +128,7 @@ export const StyledSelect = styled(Select)`
     height: 48px;
     width: 100%;
     padding: 8px;
-    border: 2px solid ${colors.grey};
+    border: 2px solid ${theme.colors.grey};
     cursor: pointer;
   }
 
@@ -147,7 +147,7 @@ export const StyledSelect = styled(Select)`
   }
 
   .Select__indicator {
-    color: ${colors.secondary};
+    color: ${theme.colors.secondary};
     margin-top: -14px;
   }
 

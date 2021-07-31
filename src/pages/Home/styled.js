@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { colors } from 'assets/styles/colors'
+import { theme } from 'theme/index'
 
 export const HomeWrapper = styled.section`
   height: 100vh;
@@ -8,11 +8,11 @@ export const HomeWrapper = styled.section`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background: ${colors.backgroundLinear};
+  background: ${theme.colors.backgroundLinear};
 `
 
 export const ButtonInitial = styled(Link)`
-  background: ${colors.primary};
+  background: ${theme.colors.primary};
   border-radius: 42px;
   padding: 0 25px;
   height: 56px;

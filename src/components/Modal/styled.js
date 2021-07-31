@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from 'assets/styles/colors'
+import { theme } from 'theme/index'
 
 export const ModalContainer = styled.div`
   width: 100%;
@@ -16,7 +16,7 @@ export const ModalContainer = styled.div`
   .container {
     width: 360px;
     max-height: 90%;
-    background: ${colors.backgroundLinear};
+    background: ${theme.colors.backgroundLinear};
     position: relative;
     box-shadow: 0px 0px 1px rgba(9, 30, 66, 0.31),
       0px 4px 8px rgba(9, 30, 66, 0.25);

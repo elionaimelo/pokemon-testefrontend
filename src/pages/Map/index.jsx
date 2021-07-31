@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 
 import Sidebar from 'components/Sidebar'
-import Ash from '../../assets/images/ashFront.png'
-import AshRight from '../../assets/images/ashRightLeg.png'
-import SearchingTooltip from '../../assets/images/searchingTooltip.png'
-import SearchTooltip from '../../assets/images/searchTooltip.png'
+import Ash from 'assets/images/ashFront.png'
+import AshRight from 'assets/images/ashRightLeg.png'
+import SearchingTooltip from 'assets/images/searchingTooltip.png'
+import SearchTooltip from 'assets/images/searchTooltip.png'
 import Tippy from '@tippyjs/react'
+import Modal from 'components/Modal/Modal'
+import Capturar from 'components/Modal/Capturar'
 
 import * as S from './styled'
 
@@ -21,10 +23,17 @@ const MapPage = () => {
             <img src={Ash} alt="" onClick={() => setPersonagem(false)} />
           </Tippy>
         ) : (
-          <S.CharacterSearching>
-            <img src={SearchingTooltip} alt="" className="tootipSearch" />
-            <img src={AshRight} alt="" onClick={() => setPersonagem(true)} />
-          </S.CharacterSearching>
+          <>
+            <S.CharacterSearching>
+              <img src={SearchingTooltip} alt="" className="tootipSearch" />
+              <img src={AshRight} alt="" onClick={() => setPersonagem(true)} />
+            </S.CharacterSearching>
+            {personagem ? null : (
+              <Modal>
+                <Capturar />
+              </Modal>
+            )}
+          </>
         )}
       </S.Character>
     </S.MapWrapper>
