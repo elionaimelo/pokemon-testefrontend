@@ -42,7 +42,11 @@ const Sidebar = () => {
           )}
         </S.SideBarList>
 
-        <Button icon={iconPlus} onClick={() => setIsModalVisible(true)} />
+        {storagepokemons < 6 ? (
+          <Button icon={iconPlus} onClick={() => setIsModalVisible(true)} />
+        ) : (
+          ''
+        )}
       </S.SideBarWrapper>
       {isModalVisible ? (
         <Modal onClose={() => setIsModalVisible(false)}>
