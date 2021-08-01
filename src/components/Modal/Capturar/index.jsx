@@ -25,7 +25,7 @@ function Capturar() {
       <S.Divisoria />
       <S.Pokeball src={imgPokeball} />
       <S.ContainerButton>
-        <S.Btn ghost>PLANTA</S.Btn>
+        <S.Btn>PLANTA</S.Btn>
         <S.Btn>VENENO</S.Btn>
       </S.ContainerButton>
     </>

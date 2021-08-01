@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ButtonWrapper = styled.button`
   padding: 1.6rem 2.4rem;
@@ -26,8 +26,8 @@ export const ButtonWrapper = styled.button`
   &:hover {
     background-color: #db2c66;
   }
-`;
+`
 
-export const Icon = styled.img``;
+export const Icon = styled.img``
 
-export const Text = styled.span``;
+export const Text = styled.span``

@@ -6,7 +6,7 @@ import iconPlus from 'assets/images/plus.png'
 
 import * as S from './styled'
 import Modal from 'components/Modal/Modal'
-import FormCreatePokemon from 'components/FormCreatePokemon/FormCreatePokemon'
+import FormCreatePokemon from 'components/Modal/FormCreatePokemon/FormCreatePokemon'
 
 const Sidebar = () => {
   const [isModalVisible, setIsModalVisible] = useState()

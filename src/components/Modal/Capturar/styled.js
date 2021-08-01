@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { theme } from 'theme/index'
 
 export const ImagePokemon = styled.img`
@@ -58,17 +58,9 @@ export const Divisoria = styled.hr`
 
 export const Pokeball = styled.img`
   display: block;
-  margin: -45px auto;
+  margin: -35px auto -65px;
   z-index: 3;
   position: relative;
-`
-
-export const ButtonDefault = css`
-  background-color: transparent;
-`
-
-export const ButtonPositive = css`
-  background-color: ${theme.colors.third};
 `
 
 export const Btn = styled.button`
@@ -77,16 +69,9 @@ export const Btn = styled.button`
   color: white;
   padding: 16px 32px;
   border: none;
-  opacity: 1;
-  font-weight: bold;
-  ${function (theme) {
-    if (theme.ghost) {
-      return ButtonPositive
-    }
-    return ButtonDefault
-  }}
-
-  &::not(::last-child) {
+  background-color: ${theme.colors.fourth};
+  &:first-of-type {
+    background-color: ${theme.colors.third};
     margin-right: 11px;
   }
 

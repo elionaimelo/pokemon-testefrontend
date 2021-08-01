@@ -80,6 +80,7 @@ function FormCreatePokemon({
   useEffect(() => {
     setStoragePokemons(pokemons)
     localStorage.setItem('pokemons', JSON.stringify(pokemons))
+    // eslint-disable-next-line
   }, [pokemons])
 
   //When selecting option change text and save storage

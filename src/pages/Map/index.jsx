@@ -12,6 +12,7 @@ import Capturar from 'components/Modal/Capturar'
 import * as S from './styled'
 
 const MapPage = () => {
+  const [isModalVisible, setIsModalVisible] = useState(true)
   const [personagem, setPersonagem] = useState(true)
 
   return (
@@ -26,13 +27,20 @@ const MapPage = () => {
           <>
             <S.CharacterSearching>
               <img src={SearchingTooltip} alt="" className="tootipSearch" />
-              <img src={AshRight} alt="" onClick={() => setPersonagem(true)} />
+              <img
+                src={AshRight}
+                alt=""
+                onClick={() => {
+                  setPersonagem(true)
+                  setIsModalVisible(true)
+                }}
+              />
             </S.CharacterSearching>
-            {personagem ? null : (
-              <Modal>
+            {isModalVisible ? (
+              <Modal onClose={() => setIsModalVisible(false)}>
                 <Capturar />
               </Modal>
-            )}
+            ) : null}
           </>
         )}
       </S.Character>
