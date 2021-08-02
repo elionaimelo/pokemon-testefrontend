@@ -28,6 +28,8 @@ function Capturar() {
 
     getPokemons()
   }, [])
+
+  function catchPokemon() {}
   return (
     <>
       <S.ImagePokemon>
@@ -76,7 +78,7 @@ function Capturar() {
         </div>
       </S.DetailsPoke>
       <S.Divisoria />
-      <S.Pokeball src={imgPokeball} />
+      <S.Pokeball src={imgPokeball} onClick={catchPokemon} />
       <S.ContainerButton>
         {pokemonTypes
           ? pokemonTypes.map((types, index) => (
