@@ -12,18 +12,26 @@ import Capturar from 'components/Modal/Capturar'
 import * as S from './styled'
 
 const MapPage = () => {
-  const [isModalVisible, setIsModalVisible] = useState(true)
-  const [personagem, setPersonagem] = useState(true)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [personagem, setPersonagem] = useState(false)
+  const [delay, setDelay] = useState(false)
+
+  const handleCheck = () => {
+    setIsModalVisible(true)
+    setDelay(!delay)
+  }
+
+  const timer = () => {
+    setTimeout(() => {
+      handleCheck()
+    }, 1000)
+  }
 
   return (
     <S.MapWrapper className="map">
       <Sidebar />
       <S.Character>
         {personagem ? (
-          <Tippy content={<img src={SearchTooltip} alt="" />}>
-            <img src={Ash} alt="" onClick={() => setPersonagem(false)} />
-          </Tippy>
-        ) : (
           <>
             <S.CharacterSearching>
               <img src={SearchingTooltip} alt="" className="tootipSearch" />
@@ -31,17 +39,34 @@ const MapPage = () => {
                 src={AshRight}
                 alt=""
                 onClick={() => {
-                  setPersonagem(true)
+                  setPersonagem(false)
                   setIsModalVisible(true)
                 }}
               />
             </S.CharacterSearching>
             {isModalVisible ? (
-              <Modal onClose={() => setIsModalVisible(false)}>
+              <Modal
+                onClose={() => {
+                  setIsModalVisible(false)
+                  setPersonagem(false)
+                  console.log(personagem)
+                }}
+              >
                 <Capturar />
               </Modal>
             ) : null}
           </>
+        ) : (
+          <Tippy content={<img src={SearchTooltip} alt="" />}>
+            <img
+              src={Ash}
+              alt=""
+              onClick={() => {
+                setPersonagem(true)
+                timer()
+              }}
+            />
+          </Tippy>
         )}
       </S.Character>
     </S.MapWrapper>
