@@ -1,16 +1,22 @@
 import styled from 'styled-components'
 import { theme } from 'theme/index'
 
-export const ImagePokemon = styled.img`
+export const ImagePokemon = styled.div`
   border-radius: 50%;
   border: 5px solid #00d68f;
   background-color: white;
   width: 247px;
   height: 247px;
-  object-fit: none;
-  display: block;
+  display: flex;
+  justify-content: center;
   margin: -125px auto 30px;
   overflow: hidden;
+  align-items: center;
+
+  > img {
+    max-width: 100%;
+    height: auto;
+  }
 `
 
 export const NomePokemon = styled.h3`
@@ -29,7 +35,9 @@ export const DetailsPoke = styled.div`
   > div {
     display: flex;
     flex-direction: column;
-    padding: 0 32px;
+    justify-content: center;
+    text-align: center;
+    padding: 0 25px;
     &:not(:last-child) {
       border-right: 1px solid #c5cee0;
     }
@@ -58,7 +66,7 @@ export const Divisoria = styled.hr`
 
 export const Pokeball = styled.img`
   display: block;
-  margin: -35px auto -65px;
+  margin: -35px auto -50px;
   z-index: 3;
   position: relative;
 `
@@ -67,6 +75,7 @@ export const Btn = styled.button`
   border-radius: 42px;
   text-transform: uppercase;
   color: white;
+  font-weight: bold;
   padding: 16px 32px;
   border: none;
   background-color: ${theme.colors.fourth};
